@@ -48,8 +48,11 @@ fi
 
 #replace tab with four spaces. Remove trailing whitespace.
 for FILE in $(git diff --cached --name-only) ;do
-    sed -i 's/\t/    /g' $FILE
-    sed -i 's/[[:space:]]*$//g' $FILE
+    if [ ${FILE##*.} != "mk" ]
+    then
+        sed -i 's/\t/    /g' $FILE
+        sed -i 's/[[:space:]]*$//g' $FILE
+    fi
     git add $FILE
 done
 
